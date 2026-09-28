@@ -463,6 +463,58 @@ function siteJsonLd() {
       reviewCount: String(reviewData.totalReviews),
     };
   }
+  const gp = loadGasPrices();
+  if (gp && data.department && data.department[0]) {
+    const fuelOffers = [];
+    if (gp.regular && !isNaN(parseFloat(gp.regular))) {
+      fuelOffers.push({
+        "@type": "Offer",
+        name: "Regular Gasoline",
+        price: (parseFloat(gp.regular) / 100).toFixed(3),
+        priceCurrency: "CAD",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: (parseFloat(gp.regular) / 100).toFixed(3),
+          priceCurrency: "CAD",
+          unitCode: "LTR",
+          name: "Per Litre",
+        },
+      });
+    }
+    if (gp.diesel && !isNaN(parseFloat(gp.diesel))) {
+      fuelOffers.push({
+        "@type": "Offer",
+        name: "Clear Diesel",
+        price: (parseFloat(gp.diesel) / 100).toFixed(3),
+        priceCurrency: "CAD",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: (parseFloat(gp.diesel) / 100).toFixed(3),
+          priceCurrency: "CAD",
+          unitCode: "LTR",
+          name: "Per Litre",
+        },
+      });
+    }
+    if (gp.premium && !isNaN(parseFloat(gp.premium))) {
+      fuelOffers.push({
+        "@type": "Offer",
+        name: "Premium Gasoline",
+        price: (parseFloat(gp.premium) / 100).toFixed(3),
+        priceCurrency: "CAD",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: (parseFloat(gp.premium) / 100).toFixed(3),
+          priceCurrency: "CAD",
+          unitCode: "LTR",
+          name: "Per Litre",
+        },
+      });
+    }
+    if (fuelOffers.length > 0) {
+      data.department[0].makesOffer = fuelOffers;
+    }
+  }
   return data;
 }
 
@@ -1218,6 +1270,11 @@ function homePage(lang = "en") {
     description: t(lang, "meta.homeDescription"),
     canonicalPath: "/",
     keywords: [
+      "tyendinaga gas prices today",
+      "lowest gas prices tyendinaga today",
+      "deseronto gas prices today",
+      "tyendinaga gas prices",
+      "tyendinaga diesel prices today",
       "gas station Deseronto",
       "convenience store Deseronto",
       "SAGO gas",

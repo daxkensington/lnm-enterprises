@@ -1,17 +1,17 @@
 const defaultCategories = [
   {
     slug: "gas-station-deseronto",
-    title: "Gas Station in Deseronto",
+    title: "Gas Prices & Station in Tyendinaga & Deseronto",
     nav: "Gas Station",
-    searchTitle: "Gas Station in Deseronto, ON",
-    blurb: "Full-service regular, premium, and diesel next door at SAGO Gas Bar.",
+    searchTitle: "Today's Gas Prices in Tyendinaga & Deseronto | L&M Enterprises",
+    blurb: "Today's lowest fuel prices: full-service regular, premium, and diesel next door at SAGO Gas Bar.",
     photo: "exterior",
     description:
-      "Full-service gas station in Deseronto at 43 Dundas Street. Regular, premium, and diesel at SAGO Gas Bar next door, with a convenience store on the same stop.",
+      "Check today's lowest gas and diesel prices in Tyendinaga Mohawk Territory and Deseronto. SAGO Gas Bar & L&M Enterprises feature full-service pumps at 43 Dundas Street.",
     intro:
-      "Need fuel in Deseronto? L&M Enterprises sits at 43 Dundas Street beside SAGO Gas Bar. Pull in for regular, premium, or diesel, get a full-service pump, then grab snacks inside.",
+      "Looking for today's gas prices in Tyendinaga or Deseronto? L&M Enterprises sits at 43 Dundas Street beside SAGO Gas Bar. Pull in for regular, premium, or diesel with full-service pumping, then grab snacks inside.",
     localAngle:
-      "We are on Dundas Street / Highway 49 in Deseronto — a daily fill-up for Tyendinaga drivers and a practical stop before Napanee, Belleville, or the 401.",
+      "We are on Dundas Street / Highway 49 in Deseronto — the daily lowest gas price stop for Tyendinaga drivers and a practical fill-up before Napanee, Belleville, or the 401.",
     details: [
       "Regular, premium, and diesel at SAGO Gas Bar next door",
       "Full-service pumping — staff fill the tank",
@@ -46,11 +46,16 @@ const defaultCategories = [
       },
     ],
     keywords: [
+      "tyendinaga gas prices today",
+      "lowest gas prices tyendinaga today",
+      "deseronto gas prices today",
+      "tyendinaga gas prices",
+      "tyendinaga diesel prices today",
       "gas station Deseronto",
       "cheap gas Deseronto",
+      "gas station Tyendinaga",
       "diesel Deseronto",
       "full service gas Deseronto",
-      "gas station Tyendinaga",
     ],
   },
   {
