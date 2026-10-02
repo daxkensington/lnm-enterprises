@@ -24,7 +24,16 @@ function writeJSON(filename, data) {
   const filePath = path.join(dataDir, filename);
   const tmp = filePath + ".tmp";
   fs.writeFileSync(tmp, JSON.stringify(data, null, 2));
-  fs.renameSync(tmp, filePath);
+  try {
+    fs.renameSync(tmp, filePath);
+  } catch (err) {
+    try {
+      fs.rmSync(tmp, { force: true });
+    } catch (cleanupErr) {
+      console.error(`writeJSON cleanup error for ${filename}:`, cleanupErr.message);
+    }
+    throw err;
+  }
 }
 
 const BLOG_CATEGORIES = [
