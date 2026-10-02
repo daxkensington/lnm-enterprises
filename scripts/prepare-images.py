@@ -1,7 +1,7 @@
 """Compress store photos and build a 1200x630 PNG social preview."""
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 STORE = ROOT / "public" / "images" / "store"
@@ -18,14 +18,21 @@ JPEG_QUALITY = 80
 def compress_jpegs():
     for path in sorted(STORE.glob("*.jpg")):
         with Image.open(path) as im:
+            # Only an RGB profile stays valid after convert("RGB")
+            icc_profile = im.info.get("icc_profile") if im.mode == "RGB" else None
+            # Bake EXIF orientation into the pixels since EXIF is dropped on save
+            im = ImageOps.exif_transpose(im)
             im = im.convert("RGB")
             max_w = MAX_WIDTH.get(path.name, DEFAULT_MAX)
             if im.width > max_w:
                 ratio = max_w / im.width
                 im = im.resize((max_w, int(im.height * ratio)), Image.Resampling.LANCZOS)
-            im.save(path, "JPEG", quality=JPEG_QUALITY, optimize=True, progressive=True)
+            im.save(
+                path, "JPEG", quality=JPEG_QUALITY, optimize=True, progressive=True,
+                icc_profile=icc_profile,
+            )
             webp = path.with_suffix(".webp")
-            im.save(webp, "WEBP", quality=78, method=6)
+            im.save(webp, "WEBP", quality=78, method=6, icc_profile=icc_profile)
             print(
                 f"compressed {path.name}: {path.stat().st_size // 1024} KB "
                 f"/ {webp.name} {webp.stat().st_size // 1024} KB ({im.size[0]}x{im.size[1]})"
