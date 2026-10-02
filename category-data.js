@@ -7,7 +7,7 @@ const defaultCategories = [
     blurb: "Today's lowest fuel prices: full-service regular, premium, and diesel next door at SAGO Gas Bar.",
     photo: "exterior",
     description:
-      "Check today's lowest gas and diesel prices in Tyendinaga Mohawk Territory and Deseronto. SAGO Gas Bar & L&M Enterprises feature full-service pumps at 43 Dundas Street.",
+      "Check today's lowest gas and diesel prices in Tyendinaga Mohawk Territory and Deseronto. Full-service pumps are at SAGO Gas Bar, 39 Dundas Street, beside L&M Enterprises at 43 Dundas Street.",
     intro:
       "Looking for today's gas prices in Tyendinaga or Deseronto? L&M Enterprises sits at 43 Dundas Street beside SAGO Gas Bar. Pull in for regular, premium, or diesel with full-service pumping, then grab snacks inside.",
     localAngle:
@@ -306,7 +306,8 @@ const defaultFaqs = [
   },
   {
     question: "Do you sell diesel?",
-    answer: "Yes. Dyed diesel and clear diesel are available at the SAGO pumps. Prices are posted on this site.",
+    answer:
+      "Yes. Dyed diesel and clear diesel are available at the SAGO pumps. Prices are posted on this site.",
   },
   {
     question: "Do you sell tobacco and vapes?",
