@@ -13,8 +13,9 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
     actionType,
     entityType,
     entityId,
-    oldValue: oldValue ? JSON.stringify(oldValue) : null,
-    newValue: newValue ? JSON.stringify(newValue) : null,
+    // Persist 0, false, and "". Null and undefined stay null. NaN stringifies to "null" per JSON.
+    oldValue: oldValue == null ? null : JSON.stringify(oldValue),
+    newValue: newValue == null ? null : JSON.stringify(newValue),
     ipAddress: req.ip || req.connection?.remoteAddress || null,
   });
   // Archive overflow entries before trimming
