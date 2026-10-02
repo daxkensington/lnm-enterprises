@@ -13,8 +13,8 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
     actionType,
     entityType,
     entityId,
-    oldValue: oldValue ? JSON.stringify(oldValue) : null,
-    newValue: newValue ? JSON.stringify(newValue) : null,
+    oldValue: oldValue === null || oldValue === undefined ? null : JSON.stringify(oldValue),
+    newValue: newValue === null || newValue === undefined ? null : JSON.stringify(newValue),
     ipAddress: req.ip || req.connection?.remoteAddress || null,
   });
   // Archive overflow entries before trimming

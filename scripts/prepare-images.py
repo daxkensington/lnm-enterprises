@@ -38,11 +38,29 @@ def font(size, bold=True):
         "arialbd.ttf" if bold else "arial.ttf",
         "calibrib.ttf" if bold else "calibri.ttf",
     ]
-    for name in names:
-        candidate = Path(r"C:\Windows\Fonts") / name
+    # Platform-appropriate font locations
+    candidates = []
+    if Path("C:/Windows/Fonts").exists():
+        candidates.extend([Path(r"C:\Windows\Fonts") / name for name in names])
+    elif Path("/System/Library/Fonts").exists():
+        candidates.extend([Path(r"/System/Library/Fonts") / name for name in names])
+        candidates.extend([Path(r"/Library/Fonts") / name for name in names])
+    else:
+        # Common Linux fontconfig paths
+        candidates.extend([Path(r"/usr/share/fonts") / name for name in names])
+        candidates.extend([Path(r"/usr/local/share/fonts") / name for name in names])
+        candidates.extend([Path.home() / ".fonts" / name for name in names])
+    
+    # Try each candidate
+    for candidate in candidates:
         if candidate.exists():
             return ImageFont.truetype(str(candidate), size)
-    return ImageFont.load_default()
+    
+    # Fallback to default font with size-aware API when possible
+    try:
+        return ImageFont.load_default(size=size)
+    except TypeError:
+        return ImageFont.load_default()
 
 
 def cover_crop(im, width, height):
