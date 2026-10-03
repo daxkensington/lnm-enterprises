@@ -29,7 +29,11 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
     }
   }
   const trimmed = entries.slice(-MAX_AUDIT_ENTRIES);
-  writeJSON("audit-log.json", trimmed);
+  try {
+    writeJSON("audit-log.json", trimmed);
+  } catch (err) {
+    console.error("Failed to persist audit log:", err);
+  }
 }
 
 module.exports = { appendAuditLog };
