@@ -4,7 +4,7 @@ const { readJSON, writeJSON } = require("./data");
 const MAX_AUDIT_ENTRIES = 500;
 
 function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue = null, newValue = null }) {
-  const entries = readJSON("audit-log.json", []);
+  let entries = readJSON("audit-log.json", []);
   entries.push({
     id: crypto.randomBytes(8).toString("hex"),
     timestamp: new Date().toISOString(),
@@ -24,12 +24,12 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
       const archive = readJSON("audit-log-archive.json", []);
       archive.push(...overflow);
       writeJSON("audit-log-archive.json", archive);
+      entries = entries.slice(-MAX_AUDIT_ENTRIES);
     } catch (err) {
       console.error("Failed to archive audit log entries:", err);
     }
   }
-  const trimmed = entries.slice(-MAX_AUDIT_ENTRIES);
-  writeJSON("audit-log.json", trimmed);
+  writeJSON("audit-log.json", entries);
 }
 
 module.exports = { appendAuditLog };
