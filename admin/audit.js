@@ -17,19 +17,23 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
     newValue: newValue === null || newValue === undefined ? null : JSON.stringify(newValue),
     ipAddress: req.ip || req.connection?.remoteAddress || null,
   });
-  // Archive overflow entries before trimming
+  // Archive overflow entries before trimming; only trim the active log once
+  // the archive write succeeds so no entries are silently dropped.
+  let archived = true;
   if (entries.length > MAX_AUDIT_ENTRIES) {
     const overflow = entries.slice(0, entries.length - MAX_AUDIT_ENTRIES);
+    archived = false;
     try {
       const archive = readJSON("audit-log-archive.json", []);
       archive.push(...overflow);
       writeJSON("audit-log-archive.json", archive);
+      archived = true;
     } catch (err) {
       console.error("Failed to archive audit log entries:", err);
     }
   }
-  const trimmed = entries.slice(-MAX_AUDIT_ENTRIES);
-  writeJSON("audit-log.json", trimmed);
+  const finalEntries = archived ? entries.slice(-MAX_AUDIT_ENTRIES) : entries;
+  writeJSON("audit-log.json", finalEntries);
 }
 
 module.exports = { appendAuditLog };
