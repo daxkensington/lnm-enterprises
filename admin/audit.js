@@ -26,6 +26,9 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
       writeJSON("audit-log-archive.json", archive);
     } catch (err) {
       console.error("Failed to archive audit log entries:", err);
+      // Keep all entries, including the new record, untrimmed on archive failure.
+      writeJSON("audit-log.json", entries);
+      return;
     }
   }
   const trimmed = entries.slice(-MAX_AUDIT_ENTRIES);
