@@ -20,16 +20,22 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
   // Archive overflow entries before trimming
   if (entries.length > MAX_AUDIT_ENTRIES) {
     const overflow = entries.slice(0, entries.length - MAX_AUDIT_ENTRIES);
+    let archived = true;
     try {
       const archive = readJSON("audit-log-archive.json", []);
       archive.push(...overflow);
       writeJSON("audit-log-archive.json", archive);
     } catch (err) {
       console.error("Failed to archive audit log entries:", err);
+      archived = false;
+    }
+    if (archived) {
+      const trimmed = entries.slice(-MAX_AUDIT_ENTRIES);
+      writeJSON("audit-log.json", trimmed);
+      return;
     }
   }
-  const trimmed = entries.slice(-MAX_AUDIT_ENTRIES);
-  writeJSON("audit-log.json", trimmed);
+  writeJSON("audit-log.json", entries);
 }
 
 module.exports = { appendAuditLog };
