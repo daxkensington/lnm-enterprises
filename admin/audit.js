@@ -3,8 +3,13 @@ const { readJSON, writeJSON } = require("./data");
 
 const MAX_AUDIT_ENTRIES = 500;
 
+function readJSONArray(filename) {
+  const value = readJSON(filename, []);
+  return Array.isArray(value) ? value : [];
+}
+
 function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue = null, newValue = null }) {
-  const entries = readJSON("audit-log.json", []);
+  const entries = readJSONArray("audit-log.json");
   entries.push({
     id: crypto.randomBytes(8).toString("hex"),
     timestamp: new Date().toISOString(),
@@ -21,7 +26,7 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
   if (entries.length > MAX_AUDIT_ENTRIES) {
     const overflow = entries.slice(0, entries.length - MAX_AUDIT_ENTRIES);
     try {
-      const archive = readJSON("audit-log-archive.json", []);
+      const archive = readJSONArray("audit-log-archive.json");
       archive.push(...overflow);
       writeJSON("audit-log-archive.json", archive);
     } catch (err) {
