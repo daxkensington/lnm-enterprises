@@ -864,8 +864,8 @@ function gasPriceSection(lang = "en") {
 
   if (!cards) return "";
 
-  const updatedNote = gp.updatedLabel
-    ? `<p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.9rem;">${escapeHtml(gp.updatedLabel)}</p>`
+  const updatedNote = pricesUpdatedLabel(gp, lang)
+    ? `<p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.9rem;">${escapeHtml(pricesUpdatedLabel(gp, lang))}</p>`
     : "";
 
   return `
@@ -874,7 +874,7 @@ function gasPriceSection(lang = "en") {
         <div class="section-header">
           <h2>${t(lang, "gasPrices.title")}</h2>
           <div class="section-divider"></div>
-          <p>Competitive fuel prices every day at L&amp;M Enterprises.</p>
+          <p>${t(lang, "prices.confirmAtPump")}</p>
         </div>
         <div class="info-grid">${cards}</div>
         ${updatedNote}
@@ -1029,18 +1029,16 @@ function reviewsSection(lang = "en", limit = 5, opts = {}) {
 
 function pricesUpdatedLabel(gp, lang) {
   const at = gp.lastUpdatedAt ? Date.parse(gp.lastUpdatedAt) : NaN;
-  const fresh = Number.isFinite(at) && Date.now() - at < 36 * 60 * 60 * 1000;
-  if (fresh) return t(lang, "prices.updatedDaily");
   if (Number.isFinite(at)) {
     const formatted = new Date(at).toLocaleDateString(lang === "fr" ? "fr-CA" : "en-CA", {
       year: "numeric",
       month: "short",
       day: "numeric",
+      timeZone: "America/Toronto",
     });
     return `${t(lang, "gasPrices.lastUpdated")} ${formatted}`;
   }
-  if (gp.updatedLabel) return gp.updatedLabel;
-  return "";
+  return t(lang, "prices.dateUnavailable");
 }
 
 function formatCents(value) {
@@ -1109,7 +1107,7 @@ function homePage(lang = "en") {
           <div class="section-divider"></div>
         </div>
         <div class="price-grid">${priceCards}</div>
-        <p class="price-footer">${t(lang, "prices.footer")}</p>
+        <p class="price-footer">${t(lang, "prices.confirmAtPump")}</p>
       </div>
     </section>`
     : "";
