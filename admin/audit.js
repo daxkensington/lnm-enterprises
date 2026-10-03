@@ -17,6 +17,7 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
     newValue: newValue === null || newValue === undefined ? null : JSON.stringify(newValue),
     ipAddress: req.ip || req.connection?.remoteAddress || null,
   });
+  let toWrite = entries;
   // Archive overflow entries before trimming
   if (entries.length > MAX_AUDIT_ENTRIES) {
     const overflow = entries.slice(0, entries.length - MAX_AUDIT_ENTRIES);
@@ -24,12 +25,12 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
       const archive = readJSON("audit-log-archive.json", []);
       archive.push(...overflow);
       writeJSON("audit-log-archive.json", archive);
+      toWrite = entries.slice(-MAX_AUDIT_ENTRIES);
     } catch (err) {
-      console.error("Failed to archive audit log entries:", err);
+      console.error("Failed to archive audit log entries; overflow entries retained in the primary log:", err);
     }
   }
-  const trimmed = entries.slice(-MAX_AUDIT_ENTRIES);
-  writeJSON("audit-log.json", trimmed);
+  writeJSON("audit-log.json", toWrite);
 }
 
 module.exports = { appendAuditLog };
