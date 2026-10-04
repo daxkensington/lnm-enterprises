@@ -14,6 +14,7 @@ function readJSON(filename, fallback = null) {
   } catch (err) {
     if (err.code !== "ENOENT") {
       console.error(`readJSON error for ${filename}:`, err.message);
+      throw err;
     }
     return fallback;
   }
