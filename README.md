@@ -6,7 +6,7 @@ This folder contains a Railway-ready copy of the public `lnmenterprises.ca` site
 
 - The live public CSS and JavaScript bundle from the Manus-hosted site
 - Cleaned HTML shell without Manus editor/runtime scripts
-- A small Express server for SPA routing on Railway
+- A small Express server on Railway that serves server-rendered HTML pages plus static assets from `public/` (no SPA fallback routing; unknown URLs return a rendered 404 page)
 - Clean `robots.txt` and `sitemap.xml` that no longer expose admin routes
 
 ## What was not migrated
