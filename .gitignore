@@ -2,3 +2,7 @@ node_modules/
 npm-debug.log*
 .env
 data/
+scripts/_*.json
+scripts/check-railway-vars.py
+scripts/fetch-google-reviews.py
+scripts/harvest-review-snippets.py
