@@ -5,4 +5,21 @@ Disallow: /admin/
 Disallow: /api
 Disallow: /api/
 Disallow: /files
+
+# Allow AI Answer Engines (Perplexity, ChatGPT, Claude) to cite fuel prices & store info
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Anthropic-AI
+User-agent: Applebot-Extended
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+
+# Block aggressive scrapers
+User-agent: Bytespider
+User-agent: CCBot
+Disallow: /
+
 Sitemap: https://www.lnmenterprises.ca/sitemap.xml

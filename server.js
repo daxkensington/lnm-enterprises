@@ -342,7 +342,14 @@ function pageTemplate({
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css?v=13" />
     <meta property="og:locale" content="${lang === "fr" ? "fr_CA" : "en_CA"}" />
-    <script type="application/ld+json">${JSON.stringify(Array.isArray(jsonLd) ? jsonLd.filter(Boolean) : jsonLd)}</script>${process.env.UMAMI_WEBSITE_ID ? `
+    <script type="application/ld+json">${JSON.stringify(Array.isArray(jsonLd) ? jsonLd.filter(Boolean) : jsonLd)}</script>${process.env.GA_MEASUREMENT_ID ? `
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${escapeHtml(process.env.GA_MEASUREMENT_ID)}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '${escapeHtml(process.env.GA_MEASUREMENT_ID)}');
+    </script>` : ""}${process.env.UMAMI_WEBSITE_ID ? `
     <script defer src="${process.env.UMAMI_HOST || "https://cloud.umami.is"}/script.js" data-website-id="${escapeHtml(process.env.UMAMI_WEBSITE_ID)}"></script>` : ""}
   </head>
   <body>
@@ -2058,6 +2065,11 @@ app.get("/reviews", (req, res) => {
   res.send(reviewsPage(req.lang));
 });
 
+/* ── Gas Prices URL Aliases ── */
+app.get(["/gas-prices", "/tyendinaga-gas-prices", "/deseronto-gas-prices", "/fuel-prices"], (_req, res) => {
+  res.redirect(301, "/gas-station-deseronto");
+});
+
 const categorySlugs = new Set(defaultCategories.map((c) => c.slug));
 for (const slug of categorySlugs) {
   app.get(`/${slug}`, (req, res) => {
@@ -2076,6 +2088,7 @@ app.get("/sitemap.xml", (_req, res) => {
   const today = new Date().toISOString().slice(0, 10);
   const urls = [
     { loc: "/", priority: "1.0", changefreq: "weekly", lastmod: today },
+    { loc: "/gas-station-deseronto", priority: "0.95", changefreq: "daily", lastmod: today },
     { loc: "/deseronto-convenience-store-gas-station", priority: "0.9", changefreq: "weekly", lastmod: today },
     { loc: "/contact-directions", priority: "0.8", changefreq: "monthly", lastmod: today },
     { loc: "/reviews", priority: "0.8", changefreq: "weekly", lastmod: today },

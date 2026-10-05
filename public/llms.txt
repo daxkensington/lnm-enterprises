@@ -1,14 +1,34 @@
 # L&M Enterprises & SAGO Gas Bar
 
-> Independent convenience store, tobacco retailer, and full-service gas station on Tyendinaga Mohawk Territory at 39–43 Dundas Street, Deseronto, ON.
+> Convenience store, tobacco, vape shop, and full-service gas bar located on Tyendinaga Mohawk Territory in Deseronto, Ontario.
 
-## Core Facts
-- **Business Names**: L&M Enterprises (Convenience Store) & SAGO Gas Bar (Fuel Station)
-- **Address**: 39–43 Dundas Street, Deseronto, ON K0K 1X0, Canada
-- **Territory**: Tyendinaga Mohawk Territory
-- **Phone**: +1 (613) 396-2224
-- **Website**: https://www.lnmenterprises.ca
-- **Hours**: Open 7 days a week, 6:00 AM – 10:00 PM daily
-- **Fuel Offerings**: Full-service Regular Gasoline, Premium 91 Gasoline, Clear Diesel, and Dyed Farm Diesel at tax-free competitive prices.
-- **Convenience Store Offerings**: Tobacco, cigars, vape hardware, cold drinks, snacks, groceries, lottery, and automotive supplies.
-- **Plaza Complex**: 39–45 Dundas Street (shares the plaza with Mohawk Medibles cannabis dispensary and The Stoned Chef food truck). Park once for gas, food, and shopping.
+## Core Information
+- **Business Name:** L&M Enterprises (Store) & SAGO Gas Bar (Pumps)
+- **Address:** 39–43 Dundas Street, Deseronto, Ontario, K0K 1X0, Canada
+- **Telephone:** +1-613-396-2224
+- **Operating Hours:** Open 7 days a week, 6:00 AM – 10:00 PM
+- **Location & Access:** Situated on Dundas Street / Highway 49, accessible from Highway 401 via Exit 566 (Marysville) or Exit 570 (Deseronto). Serving Tyendinaga, Deseronto, Napanee, Shannonville, Belleville, and Prince Edward County drivers.
+
+## Fuel Services (SAGO Gas Bar)
+- **Pumps:** Full-service pumping (friendly attendants pump your fuel).
+- **Available Fuel Types:**
+  - Regular Unleaded Gasoline (87 octane)
+  - Premium Gasoline (91 octane)
+  - Clear Diesel (highway diesel for trucks, SUVs, passenger cars)
+  - Dyed Diesel (tax-exempt agricultural, commercial, and off-road equipment)
+- **Tax Exemption:** Point-of-sale tax exemption available for registered First Nations Indian Status cardholders.
+- **Pricing:** Fuel prices are updated daily at `/gas-station-deseronto` and `/gas-prices`.
+
+## Store Offerings (L&M Enterprises)
+- **Tobacco & Cigarettes:** Canadian Classics, BB, DK's, Playfare's, Putters, Rolled Gold, cigars, and pipe tobacco.
+- **Vapes & Nicotine Pouches:** Disposable vapes, pods, e-liquids, and nicotine pouches (Zolt, White Fox, Siberia, etc.).
+- **Convenience & Snacks:** Cold beverages, fresh coffee, confectioneries, chips, ice, automotive essentials, and propane tank exchange.
+- **Payment Methods:** Cash, Debit, Visa, MasterCard. ATM on site.
+
+## Key Links
+- Homepage: https://www.lnmenterprises.ca/
+- Today's Gas Prices: https://www.lnmenterprises.ca/gas-station-deseronto
+- Convenience Store: https://www.lnmenterprises.ca/convenience-store-deseronto
+- Contact & Directions: https://www.lnmenterprises.ca/contact-directions
+- Customer Reviews: https://www.lnmenterprises.ca/reviews
+- Blog: https://www.lnmenterprises.ca/blog
