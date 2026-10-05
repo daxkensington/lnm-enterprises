@@ -3,7 +3,7 @@ const defaultCategories = [
     slug: "gas-station-deseronto",
     title: "Gas Prices & Station in Tyendinaga & Deseronto",
     nav: "Gas Station",
-    searchTitle: "Today's Gas Prices in Tyendinaga & Deseronto | L&M Enterprises",
+    searchTitle: "Today's Gas Prices in Tyendinaga & Deseronto",
     blurb: "Today's lowest fuel prices: full-service regular, premium, and diesel next door at SAGO Gas Bar.",
     photo: "exterior",
     description:

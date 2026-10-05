@@ -1597,6 +1597,7 @@ function categoryPage(category, lang = "en") {
       )
     : "";
   const isGas = category.slug === "gas-station-deseronto";
+  const gp = isGas ? loadGasPrices() : null;
   const prices = isGas ? gasPriceSection(lang) : "";
   const cheapGasLink = isGas
     ? `<p><a href="/blog/cheapest-gas-prices-deseronto-tyendinaga-near-401">${t(lang, "category.cheapGasGuide")}</a></p>`
@@ -1605,6 +1606,16 @@ function categoryPage(category, lang = "en") {
   const reviewOpts = isGas
     ? { reviewData: loadSagoReviews(), mapsUrl: sagoMapsPlaceUrl, title: t(lang, "reviews.sagoTitle"), allLink: false }
     : {};
+
+  const gasFaqs = isGas && gp
+    ? [
+        {
+          question: "What are today's gas prices at SAGO Gas Bar & L&M Enterprises in Tyendinaga / Deseronto?",
+          answer: `Current fuel prices at SAGO Gas Bar (39 Dundas St, Deseronto) are: Regular Unleaded: ${gp.regular || "149.9"}¢/L, Premium: ${gp.premium || "169.9"}¢/L, Clear Diesel: ${gp.diesel || "199.9"}¢/L, and Dyed Diesel: ${gp.dyedDiesel || "189.9"}¢/L. All fuel is pumped full-service by our attendants. Prices are updated daily.`,
+        },
+        ...(category.faqs || []),
+      ]
+    : (category.faqs || []);
 
   const content = `
     <section class="hero">
@@ -1643,7 +1654,7 @@ function categoryPage(category, lang = "en") {
           <div>${photo}</div>
         </div>
       </section>
-      ${faqSection(lang, category.faqs || [])}
+      ${faqSection(lang, gasFaqs)}
       ${reviewsSection(lang, isGas ? 6 : 3, reviewOpts)}
       <section class="section">
         <div class="container two-col">
@@ -1671,7 +1682,7 @@ function categoryPage(category, lang = "en") {
       {
         ...siteJsonLd(),
         "@type": categorySchemaType(category.slug),
-        name: isGas ? "SAGO Gas Bar" : `L&M Enterprises - ${category.title}`,
+        name: isGas ? "SAGO Gas Bar & L&M Enterprises" : `L&M Enterprises - ${category.title}`,
         description: category.description,
         url: `${siteUrl}/${category.slug}`,
         hasMap: mapsUrl,
@@ -1685,6 +1696,103 @@ function categoryPage(category, lang = "en") {
                 postalCode: "K0K 1X0",
                 addressCountry: "CA",
               },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: 44.1925,
+                longitude: -77.0505,
+              },
+              telephone: "+16133962224",
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday",
+                  ],
+                  opens: "06:00",
+                  closes: "22:00",
+                },
+              ],
+              currenciesAccepted: "CAD",
+              paymentAccepted: "Cash, Debit Card, Credit Card",
+              priceRange: "$$",
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Current Fuel Prices",
+                itemListElement: gp
+                  ? [
+                      gp.regular && gp.regular !== "0.00"
+                        ? {
+                            "@type": "Offer",
+                            name: "Regular Unleaded Gasoline",
+                            price: (parseFloat(gp.regular) / 100).toFixed(3),
+                            priceCurrency: "CAD",
+                            priceSpecification: {
+                              "@type": "UnitPriceSpecification",
+                              price: (parseFloat(gp.regular) / 100).toFixed(3),
+                              priceCurrency: "CAD",
+                              unitCode: "LTR",
+                              unitText: "liter",
+                            },
+                            availability: "https://schema.org/InStock",
+                          }
+                        : null,
+                      gp.premium && gp.premium !== "0.00"
+                        ? {
+                            "@type": "Offer",
+                            name: "Premium Unleaded Gasoline",
+                            price: (parseFloat(gp.premium) / 100).toFixed(3),
+                            priceCurrency: "CAD",
+                            priceSpecification: {
+                              "@type": "UnitPriceSpecification",
+                              price: (parseFloat(gp.premium) / 100).toFixed(3),
+                              priceCurrency: "CAD",
+                              unitCode: "LTR",
+                              unitText: "liter",
+                            },
+                            availability: "https://schema.org/InStock",
+                          }
+                        : null,
+                      gp.diesel && gp.diesel !== "0.00"
+                        ? {
+                            "@type": "Offer",
+                            name: "Clear Diesel Fuel",
+                            price: (parseFloat(gp.diesel) / 100).toFixed(3),
+                            priceCurrency: "CAD",
+                            priceSpecification: {
+                              "@type": "UnitPriceSpecification",
+                              price: (parseFloat(gp.diesel) / 100).toFixed(3),
+                              priceCurrency: "CAD",
+                              unitCode: "LTR",
+                              unitText: "liter",
+                            },
+                            availability: "https://schema.org/InStock",
+                          }
+                        : null,
+                      gp.dyedDiesel && gp.dyedDiesel !== "0.00"
+                        ? {
+                            "@type": "Offer",
+                            name: "Dyed Diesel Fuel",
+                            price: (parseFloat(gp.dyedDiesel) / 100).toFixed(3),
+                            priceCurrency: "CAD",
+                            priceSpecification: {
+                              "@type": "UnitPriceSpecification",
+                              price: (parseFloat(gp.dyedDiesel) / 100).toFixed(3),
+                              priceCurrency: "CAD",
+                              unitCode: "LTR",
+                              unitText: "liter",
+                            },
+                            availability: "https://schema.org/InStock",
+                          }
+                        : null,
+                    ].filter(Boolean)
+                  : [],
+              },
             }
           : {}),
       },
@@ -1692,7 +1800,7 @@ function categoryPage(category, lang = "en") {
         { name: "Home", path: "/" },
         { name: category.nav, path: `/${category.slug}` },
       ]),
-      faqJsonLd(category.faqs || []),
+      faqJsonLd(gasFaqs),
     ],
     lang,
     content: layout(content, lang),
