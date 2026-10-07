@@ -12,10 +12,11 @@ function readJSON(filename, fallback = null) {
     const filePath = path.join(dataDir, filename);
     return JSON.parse(fs.readFileSync(filePath, "utf8"));
   } catch (err) {
-    if (err.code !== "ENOENT") {
-      console.error(`readJSON error for ${filename}:`, err.message);
+    if (err.code === "ENOENT") {
+      return fallback;
     }
-    return fallback;
+    console.error(`readJSON error for ${filename}:`, err.message);
+    throw err;
   }
 }
 
