@@ -52,7 +52,7 @@ function appendAuditLog({ req, actionType, entityType, entityId = null, oldValue
     archived = true;
   } catch (err) {
     console.error("Failed to archive audit log entries:", err);
-    writeJSON("audit-log.json", entries);
+    writeJSON("audit-log.json", entries.slice(-MAX_AUDIT_ENTRIES));
     return;
   }
 
