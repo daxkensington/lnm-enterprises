@@ -454,22 +454,9 @@ function siteJsonLd() {
       },
     ],
   };
-  const reviewData = loadReviews();
-  const sago = loadSagoReviews();
-  if (sago && sago.rating && sago.totalReviews && data.department && data.department[0]) {
-    data.department[0].aggregateRating = {
-      "@type": "AggregateRating",
-      ratingValue: String(sago.rating),
-      reviewCount: String(sago.totalReviews),
-    };
-  }
-  if (reviewData && reviewData.rating && reviewData.totalReviews) {
-    data.aggregateRating = {
-      "@type": "AggregateRating",
-      ratingValue: String(reviewData.rating),
-      reviewCount: String(reviewData.totalReviews),
-    };
-  }
+  // Google excludes self-serving LocalBusiness ratings from review rich results,
+  // including ratings sourced from Google. Keep the visible customer reviews,
+  // but do not attach their ratings to this site's own business entities.
   const gp = loadGasPrices();
   if (gp && data.department && data.department[0]) {
     const fuelOffers = [];
