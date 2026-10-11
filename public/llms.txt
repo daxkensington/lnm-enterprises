@@ -17,7 +17,7 @@
   - Clear Diesel (highway diesel for trucks, SUVs, passenger cars)
   - Dyed Diesel (tax-exempt agricultural, commercial, and off-road equipment)
 - **Tax Exemption:** Point-of-sale tax exemption available for registered First Nations Indian Status cardholders.
-- **Pricing:** Fuel prices are updated daily at `/gas-station-deseronto` and `/gas-prices`.
+- **Pricing:** Posted fuel prices are shown at `/gas-station-deseronto` and `/gas-prices`. Check the displayed last-updated date and call +1-613-396-2224 to confirm current pump prices.
 
 ## Store Offerings (L&M Enterprises)
 - **Tobacco & Cigarettes:** Canadian Classics, BB, DK's, Playfare's, Putters, Rolled Gold, cigars, and pipe tobacco.
