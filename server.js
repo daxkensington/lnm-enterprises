@@ -15,6 +15,9 @@ const app = express();
 const publicDir = path.join(__dirname, "public");
 const port = process.env.PORT || 3000;
 const siteUrl = "https://www.lnmenterprises.ca";
+const gaMeasurementId = /^G-[A-Z0-9]+$/.test(process.env.GA_MEASUREMENT_ID || "")
+  ? process.env.GA_MEASUREMENT_ID
+  : "";
 
 /* ── Seed defaults + load from JSON ── */
 seedAdminUsers();
@@ -265,8 +268,8 @@ app.use((req, res, next) => {
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(self)");
   res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
   const umamiHost = process.env.UMAMI_HOST || "https://cloud.umami.is";
-  const cspScriptSrc = process.env.UMAMI_WEBSITE_ID ? `'self' ${umamiHost}` : "'self'";
-  const cspConnectSrc = process.env.UMAMI_WEBSITE_ID ? `'self' ${umamiHost}` : "'self'";
+  const cspScriptSrc = ["'self'", process.env.UMAMI_WEBSITE_ID ? umamiHost : "", gaMeasurementId ? "https://www.googletagmanager.com" : ""].filter(Boolean).join(" ");
+  const cspConnectSrc = ["'self'", process.env.UMAMI_WEBSITE_ID ? umamiHost : "", gaMeasurementId ? "https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com" : ""].filter(Boolean).join(" ");
   res.setHeader(
     "Content-Security-Policy",
     `default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src ${cspScriptSrc}; connect-src ${cspConnectSrc}; frame-src 'self' https://www.google.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`,
@@ -342,14 +345,9 @@ function pageTemplate({
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css?v=13" />
     <meta property="og:locale" content="${lang === "fr" ? "fr_CA" : "en_CA"}" />
-    <script type="application/ld+json">${JSON.stringify(Array.isArray(jsonLd) ? jsonLd.filter(Boolean) : jsonLd)}</script>${process.env.GA_MEASUREMENT_ID ? `
-    <script async src="https://www.googletagmanager.com/gtag/js?id=${escapeHtml(process.env.GA_MEASUREMENT_ID)}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${escapeHtml(process.env.GA_MEASUREMENT_ID)}');
-    </script>` : ""}${process.env.UMAMI_WEBSITE_ID ? `
+    <script type="application/ld+json">${JSON.stringify(Array.isArray(jsonLd) ? jsonLd.filter(Boolean) : jsonLd)}</script>${gaMeasurementId ? `
+    <script src="/ga-init.js" data-measurement-id="${escapeHtml(gaMeasurementId)}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${escapeHtml(gaMeasurementId)}"></script>` : ""}${process.env.UMAMI_WEBSITE_ID ? `
     <script defer src="${process.env.UMAMI_HOST || "https://cloud.umami.is"}/script.js" data-website-id="${escapeHtml(process.env.UMAMI_WEBSITE_ID)}"></script>` : ""}
   </head>
   <body>
@@ -858,8 +856,9 @@ function gasPriceSection(lang = "en") {
 
   if (!cards) return "";
 
-  const updatedNote = gp.updatedLabel
-    ? `<p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.9rem;">${escapeHtml(gp.updatedLabel)}</p>`
+  const updatedLabel = pricesUpdatedLabel(gp, lang);
+  const updatedNote = updatedLabel
+    ? `<p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.9rem;">${escapeHtml(updatedLabel)}</p>`
     : "";
 
   return `
@@ -1023,8 +1022,6 @@ function reviewsSection(lang = "en", limit = 5, opts = {}) {
 
 function pricesUpdatedLabel(gp, lang) {
   const at = gp.lastUpdatedAt ? Date.parse(gp.lastUpdatedAt) : NaN;
-  const fresh = Number.isFinite(at) && Date.now() - at < 36 * 60 * 60 * 1000;
-  if (fresh) return t(lang, "prices.updatedDaily");
   if (Number.isFinite(at)) {
     const formatted = new Date(at).toLocaleDateString(lang === "fr" ? "fr-CA" : "en-CA", {
       year: "numeric",
@@ -1597,8 +1594,8 @@ function categoryPage(category, lang = "en") {
   const gasFaqs = isGas && gp
     ? [
         {
-          question: "What are today's gas prices at SAGO Gas Bar & L&M Enterprises in Tyendinaga / Deseronto?",
-          answer: `Current fuel prices at SAGO Gas Bar (39 Dundas St, Deseronto) are: Regular Unleaded: ${gp.regular || "149.9"}¢/L, Premium: ${gp.premium || "169.9"}¢/L, Clear Diesel: ${gp.diesel || "199.9"}¢/L, and Dyed Diesel: ${gp.dyedDiesel || "189.9"}¢/L. All fuel is pumped full-service by our attendants. Prices are updated daily.`,
+          question: "Where can I check gas prices at SAGO Gas Bar & L&M Enterprises in Tyendinaga / Deseronto?",
+          answer: `Posted fuel prices at SAGO Gas Bar (39 Dundas St, Deseronto) are: Regular Unleaded: ${gp.regular || "149.9"}¢/L, Premium: ${gp.premium || "169.9"}¢/L, Clear Diesel: ${gp.diesel || "199.9"}¢/L, and Dyed Diesel: ${gp.dyedDiesel || "189.9"}¢/L. All fuel is pumped full-service by our attendants. Check the displayed last-updated date and call +1-613-396-2224 to confirm current pump prices.`,
         },
         ...(category.faqs || []),
       ]
