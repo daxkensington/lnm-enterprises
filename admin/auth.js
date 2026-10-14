@@ -79,8 +79,11 @@ function seedAdminUsers() {
     return;
   }
 
-  // Fresh seed
-  const hash = bcrypt.hashSync("changeme", 10);
+  // Fresh seed — never seed a predictable default password
+  const initialPassword =
+    (process.env.INITIAL_ADMIN_PASSWORD || "").trim() ||
+    crypto.randomBytes(16).toString("hex");
+  const hash = bcrypt.hashSync(initialPassword, 10);
   const user = {
     id: crypto.randomBytes(8).toString("hex"),
     username: "admin",
@@ -93,7 +96,7 @@ function seedAdminUsers() {
     lastLoginAt: null,
   };
   writeJSON("admin-users.json", [user]);
-  console.log("Admin users seeded (username: admin, password: changeme). Change immediately!");
+  console.log("Admin user 'admin' seeded in admin-users.json. Set INITIAL_ADMIN_PASSWORD or reset via admin CLI.");
 }
 
 /* ── Login verification ── */
