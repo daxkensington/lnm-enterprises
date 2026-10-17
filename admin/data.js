@@ -24,8 +24,8 @@ function writeJSON(filename, data) {
   ensureDataDir();
   const filePath = path.join(dataDir, filename);
   const tmp = filePath + ".tmp";
-  fs.writeFileSync(tmp, JSON.stringify(data, null, 2));
   try {
+    fs.writeFileSync(tmp, JSON.stringify(data, null, 2));
     fs.renameSync(tmp, filePath);
   } catch (err) {
     try {
