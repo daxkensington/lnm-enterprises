@@ -19,6 +19,8 @@ The original admin flow is tied to Manus account auth and will need to be rebuil
 
 ## Local run
 
+Requires Node.js 20 or newer (matches `engines.node` in package.json).
+
 ```bash
 npm install
 npm start
@@ -29,7 +31,7 @@ npm start
 1. Push this folder to a GitHub repo.
 2. Create a new Railway project from that repo.
 3. Set the root directory to `lnmenterprises-railway` if the repo contains other folders.
-4. Railway should detect Node automatically and run `npm start`.
+4. Railway should detect Node automatically (Node.js 20 or newer) and run `npm start`.
 5. Point your custom domain at the new Railway service after you verify the site.
 
 ## Next recommended rebuilds
