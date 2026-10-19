@@ -17,6 +17,20 @@ This folder contains a Railway-ready copy of the public `lnmenterprises.ca` site
 
 The original admin flow is tied to Manus account auth and will need to be rebuilt separately if you want an admin on Railway.
 
+## Posted fuel prices
+
+Public price boards describe the latest posted values and show their server-recorded
+update date in the station's America/Toronto timezone. Updates at least 24 hours
+old carry a call-to-confirm notice. Missing, invalid or future timestamps are
+unconfirmed; free-text labels cannot establish freshness. English and French
+home metadata and category copy do not promise today's price. This does not
+refresh prices or certify the current pump price; authorized staff update them
+through the existing admin flow.
+
+`npm test` verifies the time boundary and real English/French HTTP pages against
+disposable local data, including unchanged price values and timestamps. The
+fixture binds to loopback; `HOST` can set the normal server's bind address.
+
 ## Local run
 
 Requires Node.js 20 or newer (matches `engines.node` in package.json).

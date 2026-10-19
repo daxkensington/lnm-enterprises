@@ -6,6 +6,7 @@ const { readJSON, writeJSON, BLOG_CATEGORIES, formatDrawMonth } = require("./adm
 const { seedAdminUsers } = require("./admin/auth");
 const { syncGoogleReviews, PLACE_ID, SAGO_PLACE_ID } = require("./admin/reviews");
 const { t } = require("./translations");
+const { priceFreshness } = require("./price-freshness");
 const { defaultCategories, defaultFaqs } = require("./category-data");
 const { complexBusinesses } = require("./complex-data");
 const googleMapsPlaceUrl = `https://www.google.com/maps/place/?q=place_id:${PLACE_ID}`;
@@ -871,6 +872,7 @@ function gasPriceSection(lang = "en") {
         </div>
         <div class="info-grid">${cards}</div>
         ${updatedNote}
+        ${priceFreshnessNotice(gp, lang)}
       </div>
     </section>`;
 }
@@ -1021,17 +1023,23 @@ function reviewsSection(lang = "en", limit = 5, opts = {}) {
 }
 
 function pricesUpdatedLabel(gp, lang) {
-  const at = gp.lastUpdatedAt ? Date.parse(gp.lastUpdatedAt) : NaN;
-  if (Number.isFinite(at)) {
+  const { at } = priceFreshness(gp);
+  if (at !== null) {
     const formatted = new Date(at).toLocaleDateString(lang === "fr" ? "fr-CA" : "en-CA", {
       year: "numeric",
       month: "short",
       day: "numeric",
+      timeZone: "America/Toronto",
     });
     return `${t(lang, "gasPrices.lastUpdated")} ${formatted}`;
   }
-  if (gp.updatedLabel) return gp.updatedLabel;
-  return "";
+  return t(lang, "prices.unconfirmed");
+}
+
+function priceFreshnessNotice(gp, lang) {
+  const state = priceFreshness(gp).state;
+  const key = state === "stale" ? "prices.stale" : state === "unknown" ? "prices.unknown" : "prices.confirm";
+  return `<p class="price-freshness" style="text-align:center;margin-top:1rem;">${escapeHtml(t(lang, key))} <a href="tel:+16133962224">613-396-2224</a>.</p>`;
 }
 
 function formatCents(value) {
@@ -1100,6 +1108,7 @@ function homePage(lang = "en") {
           <div class="section-divider"></div>
         </div>
         <div class="price-grid">${priceCards}</div>
+        ${priceFreshnessNotice(gp, lang)}
         <p class="price-footer">${t(lang, "prices.footer")}</p>
       </div>
     </section>`
@@ -2255,7 +2264,7 @@ function scheduleReviewSync() {
 ensureReviewsSeed();
 ensureCategoryCopy();
 ensureFaqCopy();
-app.listen(port, () => {
-  console.log(`L&M Enterprises Railway server listening on ${port}`);
+const server = app.listen(port, process.env.HOST || "0.0.0.0", () => {
+  console.log(`L&M Enterprises Railway server listening on ${server.address().port}`);
   scheduleReviewSync();
 });
