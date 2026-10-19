@@ -4,6 +4,7 @@
   "private": true,
   "description": "Railway-ready public site for lnmenterprises.ca migrated from Manus",
   "scripts": {
+    "test": "node --test scripts/price-freshness.test.cjs",
     "start": "node server.js"
   },
   "engines": {
