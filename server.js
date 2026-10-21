@@ -1965,6 +1965,16 @@ function blogPostPage(post, lang = "en") {
             ${category ? `<span><a href="/blog?category=${encodeURIComponent(category)}">${escapeHtml(category)}</a></span>` : ""}
             <span>${mins} ${t(lang, "blog.minRead")}</span>
           </div>
+          <div class="info-card" style="margin-bottom:2rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+            <div>
+              <strong>${lang === "fr" ? "Consultez les prix de l'essence affichés (Ordinaire, Suprême et Diesel)" : "Check Posted Fuel Prices (Regular, Premium, Clear & Dyed Diesel)"}</strong>
+              <p style="margin:0.25rem 0 0;color:var(--text-muted);">${lang === "fr" ? "Service complet aux pompes SAGO Gas Bar (39, rue Dundas) et dépanneur L&M Enterprises (43, rue Dundas, Deseronto)." : "Full-service fuel at SAGO Gas Bar (39 Dundas St) & L&M Enterprises convenience store (43 Dundas St, Deseronto — 5 mins off Hwy 401)."}</p>
+            </div>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <a class="btn btn-primary" href="/#gas-prices">${lang === "fr" ? "Voir les prix affichés" : "View Posted Fuel Prices"}</a>
+              <a class="btn btn-outline" href="/gas-station-deseronto">${lang === "fr" ? "Station-service Deseronto" : "Deseronto Gas Station"}</a>
+            </div>
+          </div>
           <article class="blog-post-body">
             ${contentToHtml(displayContent)}
           </article>
@@ -1976,9 +1986,25 @@ function blogPostPage(post, lang = "en") {
       ${relatedHtml}
     </main>`;
 
+  const blogSeoOverrides = {
+    "cheapest-gas-prices-deseronto-tyendinaga-near-401": {
+      enTitle: "Cheapest Gas Prices in Deseronto & Tyendinaga Near Hwy 401 (Regular, Premium & Diesel) | L&M Enterprises",
+      frTitle: "Prix de l'essence les plus bas à Deseronto et Tyendinaga près de la 401 | L&M Enterprises",
+      enDesc: "Why Deseronto & Tyendinaga Mohawk Territory offer some of the lowest gas prices in Ontario — 5 mins off Hwy 401 Exit 570 (Hwy 49) at SAGO Gas Bar & L&M Enterprises.",
+      frDesc: "Pourquoi Deseronto et le territoire mohawk de Tyendinaga offrent parmi les prix d'essence les plus bas en Ontario — à 5 min de la sortie 570 de la 401.",
+    },
+    "gas-station-near-401-deseronto-cheapest-fuel-kingston-belleville": {
+      enTitle: "Best Gas Station Exit Off Hwy 401 Between Kingston & Belleville (Exit 570 Deseronto) | L&M Enterprises",
+      frTitle: "Meilleure sortie d'essence sur l'autoroute 401 entre Kingston et Belleville (Sortie 570) | L&M Enterprises",
+      enDesc: "Driving Hwy 401 between Kingston, Napanee, and Belleville? Exit 570 (Hwy 49 South) to Deseronto puts you 5 minutes from full-service fuel & convenience at L&M Enterprises.",
+      frDesc: "Sur l'autoroute 401 entre Kingston, Napanee et Belleville ? La sortie 570 (route 49 sud) vers Deseronto vous mène en 5 minutes chez L&M Enterprises.",
+    },
+  };
+  const seoOverride = blogSeoOverrides[post.slug];
+
   return pageTemplate({
-    title: `${displayTitle} | L&M Enterprises`,
-    description: excerpt,
+    title: seoOverride ? (lang === "fr" ? seoOverride.frTitle : seoOverride.enTitle) : `${displayTitle} | L&M Enterprises`,
+    description: seoOverride ? (lang === "fr" ? seoOverride.frDesc : seoOverride.enDesc) : excerpt,
     canonicalPath: `/blog/${post.slug}`,
     keywords: ["L&M Enterprises blog", "Deseronto store updates", ...(category ? [category.toLowerCase()] : [])],
     jsonLd: blogPostJsonLd(post),
