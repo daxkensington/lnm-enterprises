@@ -3,11 +3,11 @@ const defaultCategories = [
     slug: "gas-station-deseronto",
     title: "Gas Prices & Station in Tyendinaga & Deseronto",
     nav: "Gas Station",
-    searchTitle: "Posted Gas Prices in Tyendinaga & Deseronto",
+    searchTitle: "Tyendinaga & Deseronto Gas Prices — Full-Service Regular, Premium & Diesel",
     blurb: "View posted fuel prices and their update date: full-service regular, premium, and diesel next door at SAGO Gas Bar.",
     photo: "exterior",
     description:
-      "View posted gas and diesel prices in Tyendinaga Mohawk Territory and Deseronto, and call to confirm before travelling. SAGO Gas Bar & L&M Enterprises feature full-service pumps at 43 Dundas Street.",
+      "View posted Regular, Premium, and Diesel prices in Tyendinaga Mohawk Territory & Deseronto (39–43 Dundas St / Hwy 49, 5 mins off Hwy 401), and call to confirm before travelling.",
     intro:
       "Looking for today's gas prices in Tyendinaga or Deseronto? L&M Enterprises sits at 43 Dundas Street beside SAGO Gas Bar. Pull in for regular, premium, or diesel with full-service pumping, then grab snacks inside.",
     localAngle:
