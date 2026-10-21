@@ -62,6 +62,9 @@ test('real English/French pages disclose old or unknown prices without changing 
     assert.ok((await get('/?lang=fr')).includes('Date de mise à jour non confirmée'));
     await writePrices({...source,lastUpdatedAt:new Date().toISOString()});
     const recent=await get('/');
+    const blogHtml=await get('/blog/cheapest-gas-prices-deseronto-tyendinaga-near-401');
+    assert.ok(blogHtml.includes('Check Posted Fuel Prices'));
+    assert.ok(blogHtml.includes('Cheapest Gas Prices in Deseronto &amp; Tyendinaga Near Hwy 401'));
     assert.ok(recent.includes('Prices can change') && !recent.includes('at least 24 hours ago'));
   } finally {
     child.kill();
