@@ -1666,9 +1666,16 @@ function categoryPage(category, lang = "en") {
       </section>
     </main>`;
 
+  const pageTitle =
+    lang === "fr" && category.metaTitleFr
+      ? category.metaTitleFr
+      : category.metaTitle || `${category.searchTitle} | L&M Enterprises`;
+  const pageDescription =
+    lang === "fr" && category.descriptionFr ? category.descriptionFr : category.description;
+
   return pageTemplate({
-    title: `${category.searchTitle} | L&M Enterprises`,
-    description: category.description,
+    title: pageTitle,
+    description: pageDescription,
     canonicalPath: `/${category.slug}`,
     keywords: category.keywords,
     jsonLd: [
@@ -1676,7 +1683,7 @@ function categoryPage(category, lang = "en") {
         ...siteJsonLd(),
         "@type": categorySchemaType(category.slug),
         name: isGas ? "SAGO Gas Bar & L&M Enterprises" : `L&M Enterprises - ${category.title}`,
-        description: category.description,
+        description: pageDescription,
         url: `${siteUrl}/${category.slug}`,
         hasMap: mapsUrl,
         ...(isGas
@@ -2223,6 +2230,7 @@ app.get("/sitemap.xml", (_req, res) => {
   ];
 
   for (const cat of cats) {
+    if (cat.slug === "gas-station-deseronto") continue;
     urls.push({ loc: `/${cat.slug}`, priority: "0.7", changefreq: "monthly", lastmod: today });
   }
 

@@ -1,15 +1,19 @@
 const defaultCategories = [
   {
     slug: "gas-station-deseronto",
-    title: "Gas Prices & Station in Tyendinaga & Deseronto",
+    title: "Full-Service Gas Station in Deseronto (Hwy 49)",
     nav: "Gas Station",
-    searchTitle: "Tyendinaga & Deseronto Gas Prices — Full-Service Regular, Premium & Diesel",
-    blurb: "View posted fuel prices and their update date: full-service regular, premium, and diesel next door at SAGO Gas Bar.",
+    searchTitle: "Full-Service Gas Station in Deseronto (Hwy 49)",
+    metaTitle: "Full-Service Gas Station in Deseronto (Hwy 49 & 401) | L&M",
+    metaTitleFr: "Station-service à service complet à Deseronto (Rte 49) | L&M",
+    blurb: "Full-service Regular, Premium, and Diesel pumps at 39 Dundas St (Hwy 49), beside L&M convenience store.",
     photo: "exterior",
     description:
-      "View posted Regular, Premium, and Diesel prices in Tyendinaga Mohawk Territory & Deseronto (39–43 Dundas St / Hwy 49, 5 mins off Hwy 401), and call to confirm before travelling.",
+      "Full-service gas station at 39–43 Dundas St (Hwy 49) in Deseronto, 5 min off Hwy 401 Exit 570. SAGO pumps with Regular, Premium & Diesel, open 6am–10pm.",
+    descriptionFr:
+      "Station-service à service complet au 39–43, rue Dundas (route 49) à Deseronto, à 5 min de la 401. Ordinaire, super et diesel aux pompes SAGO, 6h à 22h.",
     intro:
-      "Looking for today's gas prices in Tyendinaga or Deseronto? L&M Enterprises sits at 43 Dundas Street beside SAGO Gas Bar. Pull in for regular, premium, or diesel with full-service pumping, then grab snacks inside.",
+      "Looking for a full-service gas station in Deseronto or near Hwy 401? L&M Enterprises sits at 43 Dundas Street (Highway 49) beside SAGO Gas Bar. Pull in for regular, premium, or diesel with full-service pumping, then grab snacks inside.",
     localAngle:
       "We are on Dundas Street / Highway 49 in Deseronto — the daily lowest gas price stop for Tyendinaga drivers and a practical fill-up before Napanee, Belleville, or the 401.",
     details: [
@@ -46,16 +50,14 @@ const defaultCategories = [
       },
     ],
     keywords: [
-      "tyendinaga gas prices today",
-      "lowest gas prices tyendinaga today",
-      "deseronto gas prices today",
-      "tyendinaga gas prices",
-      "tyendinaga diesel prices today",
       "gas station Deseronto",
-      "cheap gas Deseronto",
-      "gas station Tyendinaga",
-      "diesel Deseronto",
       "full service gas Deseronto",
+      "Highway 49 gas station",
+      "SAGO Gas Bar Deseronto",
+      "gas station near Hwy 401 Exit 570",
+      "diesel Deseronto",
+      "gas station Tyendinaga",
+      "Dundas Street gas station Deseronto",
     ],
   },
   {

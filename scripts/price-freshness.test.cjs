@@ -66,6 +66,32 @@ test('real English/French pages disclose old or unknown prices without changing 
     assert.ok(blogHtml.includes('Check Posted Fuel Prices'));
     assert.ok(blogHtml.includes('Cheapest Gas Prices in Deseronto &amp; Tyendinaga Near Hwy 401'));
     assert.ok(recent.includes('Prices can change') && !recent.includes('at least 24 hours ago'));
+
+    const extractMeta = html => {
+      const decode = s => s.replaceAll('&amp;', '&').replaceAll('&#39;', "'").replaceAll('&quot;', '"');
+      const title = decode((html.match(/<title>([^<]+)<\/title>/) || [])[1] || '');
+      const desc = decode((html.match(/<meta name="description" content="([^"]+)"/) || [])[1] || '');
+      return { title, desc };
+    };
+    const homeEn = extractMeta(recent);
+    assert.ok(homeEn.title.length >= 50 && homeEn.title.length <= 63, `home title length: ${homeEn.title.length}`);
+    assert.ok(homeEn.title.includes('Tyendinaga & Deseronto Gas Prices'));
+    assert.ok(homeEn.desc.length <= 158, `home desc length: ${homeEn.desc.length}`);
+    assert.ok(homeEn.desc.toLowerCase().includes('view posted gas and diesel prices and their update date'));
+
+    const stationEn = extractMeta(await get('/gas-station-deseronto'));
+    assert.ok(stationEn.title.length >= 50 && stationEn.title.length <= 62, `station title length: ${stationEn.title.length}`);
+    assert.ok(stationEn.title.includes('Full-Service Gas Station in Deseronto'));
+    assert.ok(!stationEn.title.startsWith('Tyendinaga & Deseronto Gas Prices'));
+    assert.ok(stationEn.desc.length <= 158, `station desc length: ${stationEn.desc.length}`);
+
+    const homeFr = extractMeta(await get('/?lang=fr'));
+    assert.ok(homeFr.title.length <= 65, `home FR title length: ${homeFr.title.length}`);
+    assert.ok(homeFr.desc.length <= 160, `home FR desc length: ${homeFr.desc.length}`);
+
+    const stationFr = extractMeta(await get('/gas-station-deseronto?lang=fr'));
+    assert.ok(stationFr.title.length <= 65, `station FR title length: ${stationFr.title.length}`);
+    assert.ok(stationFr.desc.length <= 160, `station FR desc length: ${stationFr.desc.length}`);
   } finally {
     child.kill();
     await exited;
