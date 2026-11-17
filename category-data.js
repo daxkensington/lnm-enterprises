@@ -65,10 +65,11 @@ const defaultCategories = [
     title: "Convenience Store in Deseronto",
     nav: "Convenience Store",
     searchTitle: "Convenience Store in Deseronto, ON",
+    metaTitle: "Convenience Store in Deseronto (Open 6am–10pm) | L&M",
     blurb: "Snacks, drinks, and everyday essentials beside the pumps.",
     photo: "aisles",
     description:
-      "Convenience store in Deseronto at 43 Dundas Street. Snacks, drinks, tobacco, vapes, and full-service gas next door. Open daily 6am–10pm.",
+      "Convenience store at 43 Dundas St, Deseronto (Hwy 49). Cold drinks, coffee, snacks, ATM, 19+ tobacco/vapes & full-service gas next door. Open 6am–10pm.",
     intro:
       "L&M Enterprises is the convenience store beside SAGO Gas Bar on Dundas Street in Deseronto — snacks, drinks, and everyday essentials without another stop.",
     localAngle:
@@ -251,6 +252,7 @@ const defaultCategories = [
     title: "Rolling Tobacco in Deseronto",
     nav: "Rolling Tobacco",
     searchTitle: "Rolling Tobacco in Deseronto, ON",
+    metaTitle: "Rolling Tobacco in Deseronto (In-Store 19+) | L&M",
     blurb: "Rolling tobacco in store for adult customers.",
     photo: "tobacco",
     description:

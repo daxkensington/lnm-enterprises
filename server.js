@@ -1380,9 +1380,9 @@ function locationPage(lang = "en") {
     </main>`;
 
   return pageTemplate({
-    title: "L&M Enterprises | Deseronto Convenience Store and Gas Station",
+    title: "Deseronto Convenience Store & Gas Station (Hwy 49) | L&M",
     description:
-      "L&M Enterprises is a convenience store and gas station in Deseronto serving Tyendinaga and nearby communities with fuel, convenience-store essentials, and in-store adult-only product categories.",
+      "Full-service gas, diesel, snacks, coffee & in-store 19+ tobacco/vapes at 39–43 Dundas St, Deseronto (Hwy 49, 5 min off Hwy 401). Open daily 6am–10pm.",
     canonicalPath: "/deseronto-convenience-store-gas-station",
     keywords: [
       "Deseronto convenience store",

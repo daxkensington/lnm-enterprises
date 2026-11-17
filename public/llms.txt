@@ -1,34 +1,38 @@
 # L&M Enterprises & SAGO Gas Bar
 
-> Convenience store, tobacco, vape shop, and full-service gas bar located on Tyendinaga Mohawk Territory in Deseronto, Ontario.
+> Convenience store, in-store 19+ tobacco & vape counter, and full-service gas bar located on Tyendinaga Mohawk Territory in Deseronto, Ontario.
 
 ## Core Information
-- **Business Name:** L&M Enterprises (Store) & SAGO Gas Bar (Pumps)
-- **Address:** 39–43 Dundas Street, Deseronto, Ontario, K0K 1X0, Canada
+- **Business Name:** L&M Enterprises (Convenience Store) & SAGO Gas Bar (Full-Service Fuel Pumps)
+- **Address:** 39–43 Dundas Street (Highway 49), Deseronto, Ontario, K0K 1X0, Canada
 - **Telephone:** +1-613-396-2224
 - **Operating Hours:** Open 7 days a week, 6:00 AM – 10:00 PM
-- **Location & Access:** Situated on Dundas Street / Highway 49, accessible from Highway 401 via Exit 566 (Marysville) or Exit 570 (Deseronto). Serving Tyendinaga, Deseronto, Napanee, Shannonville, Belleville, and Prince Edward County drivers.
+- **Location & Highway Access:** On Dundas Street / Highway 49 (look for the black bear out front), 5 minutes south of Highway 401 via Exit 570 (Deseronto Rd) or Exit 566 (Marysville). Serving Tyendinaga Mohawk Territory, Deseronto, Napanee, Shannonville, Belleville, and Prince Edward County drivers.
 
-## Fuel Services (SAGO Gas Bar)
-- **Pumps:** Full-service pumping (friendly attendants pump your fuel).
-- **Available Fuel Types:**
+## Fuel Services (SAGO Gas Bar — 39 Dundas St)
+- **Service Style:** Full-service pumping — attendants pump your fuel at no extra charge.
+- **Fuel Grades Available:**
   - Regular Unleaded Gasoline (87 octane)
   - Premium Gasoline (91 octane)
-  - Clear Diesel (highway diesel for trucks, SUVs, passenger cars)
-  - Dyed Diesel (tax-exempt agricultural, commercial, and off-road equipment)
-- **Tax Exemption:** Point-of-sale tax exemption available for registered First Nations Indian Status cardholders.
-- **Pricing:** Posted fuel prices are shown at `/gas-station-deseronto` and `/gas-prices`. Check the displayed last-updated date and call +1-613-396-2224 to confirm current pump prices.
+  - Clear Diesel (highway diesel for cars, pickups, SUVs, and commercial vehicles)
+  - Dyed Diesel (tax-exempt off-road, agricultural, and equipment diesel)
+- **Tax Exemption:** Point-of-sale fuel tax exemption available for eligible First Nations Status cardholders.
+- **Posted Fuel Prices:** Current posted Regular, Premium, Clear Diesel, and Dyed Diesel pump prices and their recorded update timestamp are published at `https://www.lnmenterprises.ca/`. Prices can change; call `+1-613-396-2224` to confirm before a special trip.
 
-## Store Offerings (L&M Enterprises)
-- **Tobacco & Cigarettes:** Canadian Classics, BB, DK's, Playfare's, Putters, Rolled Gold, cigars, and pipe tobacco.
-- **Vapes & Nicotine Pouches:** Disposable vapes, pods, e-liquids, and nicotine pouches (Zolt, White Fox, Siberia, etc.).
-- **Convenience & Snacks:** Cold beverages, fresh coffee, confectioneries, chips, ice, automotive essentials, and propane tank exchange.
-- **Payment Methods:** Cash, Debit, Visa, MasterCard. ATM on site.
+## Store Offerings (L&M Enterprises — 43 Dundas St)
+- **Convenience & Snacks:** Cold drinks, coffee, chips, candy, ice, and everyday road-trip essentials right beside the pumps.
+- **In-Store Adult Categories (19+ with Valid ID Only, No Online Orders/Shipping):** Cigarettes, cigars, rolling tobacco, and disposable vapes/accessories sold in person at the Deseronto counter. Inventory rotates; call `+1-613-396-2224` to check specific items.
+- **Payment Methods:** Cash, Debit, Visa, MasterCard. ATM available in store.
 
-## Key Links
-- Homepage: https://www.lnmenterprises.ca/
-- Today's Gas Prices: https://www.lnmenterprises.ca/gas-station-deseronto
+## Key Pages
+- Posted Gas & Diesel Prices (Home): https://www.lnmenterprises.ca/
+- Full-Service Gas Station Guide: https://www.lnmenterprises.ca/gas-station-deseronto
+- Store & Pump Complex Overview: https://www.lnmenterprises.ca/deseronto-convenience-store-gas-station
 - Convenience Store: https://www.lnmenterprises.ca/convenience-store-deseronto
+- Tobacco Counter (In-Store 19+): https://www.lnmenterprises.ca/tobacco-deseronto
+- Vape Categories (In-Store 19+): https://www.lnmenterprises.ca/vape-categories-deseronto
+- Cigars Counter (In-Store 19+): https://www.lnmenterprises.ca/cigar-categories-deseronto
+- Rolling Tobacco (In-Store 19+): https://www.lnmenterprises.ca/rolling-tobacco-deseronto
 - Contact & Directions: https://www.lnmenterprises.ca/contact-directions
 - Customer Reviews: https://www.lnmenterprises.ca/reviews
-- Blog: https://www.lnmenterprises.ca/blog
+- Fuel & Highway 401 Guides (Blog): https://www.lnmenterprises.ca/blog
