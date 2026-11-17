@@ -6,18 +6,24 @@ Disallow: /api
 Disallow: /api/
 Disallow: /files
 
-# Allow AI Answer Engines (Perplexity, ChatGPT, Claude) to cite fuel prices & store info
-User-agent: GPTBot
+# Allow AI Search & Answer Engines (ChatGPT, Perplexity, Claude, Gemini) to cite fuel prices & store info
+User-agent: OAI-SearchBot
 User-agent: ChatGPT-User
-User-agent: PerplexityBot
+User-agent: GPTBot
+User-agent: Claude-SearchBot
+User-agent: Claude-Web
 User-agent: ClaudeBot
 User-agent: Anthropic-AI
-User-agent: Applebot-Extended
+User-agent: PerplexityBot
+User-agent: Perplexity-User
 User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: DuckAssistBot
+User-agent: YouBot
 Allow: /
 Allow: /llms.txt
 
-# Block aggressive scrapers
+# Block pure training/scraping bots
 User-agent: Bytespider
 User-agent: CCBot
 Disallow: /
