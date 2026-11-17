@@ -717,17 +717,30 @@ function formatDate(dateStr) {
   } catch { return dateStr; }
 }
 
-function blogPostJsonLd(post) {
+function clampMetaText(value, maxLen) {
+  const clean = String(value || "").replace(/\s+/g, " ").trim();
+  if (clean.length <= maxLen) return clean;
+  const sliced = clean.slice(0, maxLen - 1);
+  const lastSpace = sliced.lastIndexOf(" ");
+  return `${(lastSpace > maxLen * 0.6 ? sliced.slice(0, lastSpace) : sliced).replace(/[\s,;:\-—–]+$/, "")}…`;
+}
+
+function blogPostJsonLd(post, metaDescription) {
+  const imageUrl = post.featuredImage
+    ? post.featuredImage.startsWith("http")
+      ? post.featuredImage
+      : `${siteUrl}${post.featuredImage}`
+    : `${siteUrl}/og-image.png`;
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    description: post.excerpt || (post.content || "").slice(0, 160),
+    description: metaDescription || post.excerpt || (post.content || "").slice(0, 156),
     datePublished: post.date,
     dateModified: post.date,
     author: { "@type": "Organization", name: post.author || "L&M Enterprises", url: siteUrl },
     publisher: { "@type": "Organization", name: "L&M Enterprises", url: siteUrl, logo: { "@type": "ImageObject", url: `${siteUrl}/og-image.png` } },
-    image: post.featuredImage || `${siteUrl}/og-image.png`,
+    image: imageUrl,
     url: `${siteUrl}/blog/${post.slug}`,
     mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
     wordCount: (post.content || "").split(/\s+/).filter(Boolean).length,
@@ -1533,9 +1546,9 @@ function contactPage(lang = "en") {
     </main>`;
 
   return pageTemplate({
-    title: "L&M Enterprises | Contact and Directions",
+    title: "Directions & Hours — 43 Dundas St, Deseronto | L&M",
     description:
-      "Get store contact details, hours, and directions for L&M Enterprises in Deseronto, Ontario.",
+      "Get directions, hours (6am–10pm daily), and phone (613-396-2224) for L&M Enterprises & SAGO Gas Bar at 39–43 Dundas St, Deseronto (Hwy 49, Exit 570).",
     canonicalPath: "/contact-directions",
     keywords: [
       "L&M Enterprises contact",
@@ -1891,7 +1904,7 @@ function blogPage(activeCategory = null, lang = "en") {
     </main>`;
 
   return pageTemplate({
-    title: activeCategory ? `${activeCategory} | L&M Enterprises Blog` : "L&M Enterprises | Blog",
+    title: activeCategory ? `${activeCategory} | L&M Enterprises Blog` : "Deseronto Gas, Hwy 401 & Store Guides | L&M Blog",
     description: "News, tips, and product highlights from L&M Enterprises — your gas station, convenience store, and tobacco & vape shop in Deseronto, Ontario.",
     canonicalPath: "/blog",
     keywords: ["L&M Enterprises blog", "Deseronto store updates", "gas station blog", "convenience store news"],
@@ -1950,6 +1963,225 @@ function blogPostPage(post, lang = "en") {
       </section>`
     : "";
 
+  const blogSeoOverrides = {
+    "cheapest-gas-prices-deseronto-tyendinaga-near-401": {
+      enTitle: "Cheapest Gas Prices in Deseronto & Tyendinaga (Hwy 401)",
+      frTitle: "Essence la moins chère à Deseronto et Tyendinaga (A-401)",
+      enDesc:
+        "Why Deseronto & Tyendinaga have some of Ontario's lowest gas and diesel prices — 5 min off Hwy 401 Exit 570 (Hwy 49) at SAGO Gas Bar & L&M, 6am–10pm.",
+      frDesc:
+        "Pourquoi Deseronto et Tyendinaga offrent parmi les prix d'essence et diesel les plus bas en Ontario — à 5 min de la sortie 570 de la 401, 6h–22h.",
+      faqs: [
+        {
+          question: "Why are gas prices lower in Deseronto and Tyendinaga?",
+          answer:
+            "Highway 49 between Highway 401 and Deseronto has over a dozen competing fuel stations within a few kilometres, plus point-of-sale fuel tax exemption for eligible First Nations Status cardholders. That competition keeps pump prices consistently lower than Belleville, Napanee, Kingston, and Highway 401 service centres.",
+        },
+        {
+          question: "Which fuel grades are sold at SAGO Gas Bar and L&M Enterprises?",
+          answer:
+            "SAGO Gas Bar at 39 Dundas Street (right beside L&M Enterprises at 43 Dundas Street) pumps Regular Unleaded (87), Premium (91), Clear Diesel, and Dyed Diesel — all pumped full-service by attendants at no extra charge.",
+        },
+        {
+          question: "How far is L&M Enterprises from Highway 401?",
+          answer:
+            "About 5 minutes south of Highway 401 via Exit 570 (Deseronto Road) or Exit 566 (Marysville) along Highway 49 South to 39–43 Dundas Street in Deseronto. Look for the black bear out front.",
+        },
+        {
+          question: "Where can I check posted gas prices and hours before driving?",
+          answer:
+            "Posted Regular, Premium, Clear Diesel, and Dyed Diesel prices and their recorded update date are shown on lnmenterprises.ca and /gas-station-deseronto. We are open daily from 6:00 AM to 10:00 PM — call 613-396-2224 to confirm current pump prices before a special trip.",
+        },
+      ],
+      frFaqs: [
+        {
+          question: "Pourquoi l'essence est-elle moins chère à Deseronto et Tyendinaga ?",
+          answer:
+            "Le corridor de la route 49 entre l'autoroute 401 et Deseronto compte plus d'une douzaine de stations-service en concurrence sur quelques kilomètres, en plus de l'exemption fiscale au point de vente pour les titulaires admissibles d'une carte de statut des Premières Nations.",
+        },
+        {
+          question: "Quels carburants sont offerts au SAGO Gas Bar et chez L&M Enterprises ?",
+          answer:
+            "Le SAGO Gas Bar au 39, rue Dundas (à côté du dépanneur L&M Enterprises au 43, rue Dundas) offre l'essence ordinaire (87), le super (91), le diesel clair et le diesel coloré en service complet.",
+        },
+        {
+          question: "À quelle distance de l'autoroute 401 vous trouvez-vous ?",
+          answer:
+            "À environ 5 minutes au sud de l'autoroute 401 par la sortie 570 (chemin Deseronto) ou la sortie 566 (Marysville) sur la route 49 jusqu'au 39–43, rue Dundas à Deseronto. Ouvert tous les jours de 6h à 22h (613-396-2224).",
+        },
+      ],
+    },
+    "gas-station-near-401-deseronto-cheapest-fuel-kingston-belleville": {
+      enTitle: "Cheap Gas Off Hwy 401: Exit 570 Deseronto (Hwy 49) | L&M",
+      frTitle: "Essence près de la 401 : Sortie 570 Deseronto | L&M",
+      enDesc:
+        "Driving Hwy 401 between Kingston, Napanee & Belleville? Take Exit 570 (Hwy 49 S) 5 min to Deseronto for full-service gas, diesel & snacks, 6am–10pm.",
+      frDesc:
+        "Sur l'autoroute 401 entre Kingston, Napanee et Belleville ? Prenez la sortie 570 (route 49 sud) à 5 min vers Deseronto : essence, diesel et dépanneur.",
+      faqs: [
+        {
+          question: "Which Highway 401 exit do I take for L&M Enterprises and SAGO Gas Bar?",
+          answer:
+            "Take Exit 570 (Deseronto Road) or Exit 566 (Marysville) south onto Highway 49 toward Deseronto. SAGO Gas Bar (39 Dundas Street) and L&M Enterprises (43 Dundas Street) are about 5 minutes off the 401.",
+        },
+        {
+          question: "What hours are the pumps and convenience store open for 401 drivers?",
+          answer:
+            "We are open 7 days a week from 6:00 AM to 10:00 PM, covering early-morning commuters, daytime travellers, and evening drives between Kingston, Napanee, and Belleville.",
+        },
+        {
+          question: "What can I pick up in the same stop besides fuel?",
+          answer:
+            "Alongside full-service Regular, Premium, Clear Diesel, and Dyed Diesel at SAGO Gas Bar, L&M Enterprises next door stocks hot coffee, cold drinks, snacks, ice, an ATM, and in-store 19+ tobacco and vape categories.",
+        },
+      ],
+    },
+    "prince-edward-county-stop-lm-enterprises-highway-49-gas-snacks": {
+      enTitle: "Prince Edward County Gas & Snacks Stop on Hwy 49 | L&M",
+      frTitle: "Arrêt essence et collations vers Prince Edward (Rte 49)",
+      enDesc:
+        "Heading to Prince Edward County via the Skyway Bridge? Stop on Hwy 49 in Deseronto (43 Dundas St) for full-service gas, ice, drinks & snacks, 6am–10pm.",
+      frDesc:
+        "En route vers le comté de Prince Edward par le pont Skyway ? Arrêtez-vous au 43, rue Dundas à Deseronto (route 49) pour l'essence, la glace et collations.",
+      faqs: [
+        {
+          question: "How close is L&M Enterprises to the Bay of Quinte Skyway Bridge?",
+          answer:
+            "L&M Enterprises (43 Dundas Street) and SAGO Gas Bar (39 Dundas Street) sit right on Highway 49 in Deseronto, about 5 minutes south of Highway 401 and roughly 10 minutes north of the Bay of Quinte Skyway Bridge into Prince Edward County.",
+        },
+        {
+          question: "What road-trip supplies can I grab before crossing into Prince Edward County?",
+          answer:
+            "We stock cold drinks, water, energy drinks, coffee, chips, jerky, candy, cooler ice, seasonal items like sunscreen and bug spray, everyday groceries, and an in-store 19+ cigar, tobacco, and vape counter.",
+        },
+        {
+          question: "What are your daily hours on Highway 49?",
+          answer:
+            "Open daily from 6:00 AM to 10:00 PM at 39–43 Dundas Street, Deseronto. Call 613-396-2224 if you want to confirm specific stock or posted fuel prices before your drive.",
+        },
+      ],
+    },
+    "serving-the-tyendinaga-mohawk-territory-community": {
+      enTitle: "Serving Tyendinaga Mohawk Territory & Deseronto | L&M",
+      frTitle: "Au service de Tyendinaga et Deseronto | L&M",
+      enDesc:
+        "L&M Enterprises is proud to be part of the Tyendinaga Mohawk Territory and Deseronto community. Here’s how we give back and support our neighbours.",
+      frDesc:
+        "L&M Enterprises est fier de servir la communauté du territoire mohawk de Tyendinaga et de Deseronto au 43, rue Dundas, ouvert tous les jours de 6h à 22h.",
+      faqs: [
+        {
+          question: "Where is L&M Enterprises located on Tyendinaga Mohawk Territory?",
+          answer:
+            "L&M Enterprises is at 43 Dundas Street (Highway 49), Deseronto, ON K0K 1X0, on Tyendinaga Mohawk Territory, right beside SAGO Gas Bar at 39 Dundas Street. Look for the black bear out front.",
+        },
+        {
+          question: "What are L&M Enterprises' store hours?",
+          answer: "We are open 7 days a week from 6:00 AM to 10:00 PM.",
+        },
+        {
+          question: "Is there a monthly customer contest at L&M and SAGO Gas Bar?",
+          answer:
+            "Yes. Customers can enter the monthly Win $1000 in FREE GAS contest in store at L&M Enterprises or SAGO Gas Bar — ask staff at the counter for entry details.",
+        },
+      ],
+    },
+    "welcome-to-lm-enterprises-now-online": {
+      enTitle: "Welcome to L&M Enterprises — Now Online | L&M",
+      frTitle: "Bienvenue chez L&M Enterprises en ligne | L&M",
+      enDesc:
+        "We’re excited to launch our new website and bring L&M Enterprises online. Learn about what’s new and what to expect from our Deseronto location.",
+      faqs: [
+        {
+          question: "Where is L&M Enterprises in Deseronto?",
+          answer:
+            "43 Dundas Street (Highway 49), Deseronto, ON K0K 1X0, next door to SAGO Gas Bar at 39 Dundas Street. Open daily 6:00 AM to 10:00 PM.",
+        },
+        {
+          question: "Does L&M Enterprises process online orders or shipping?",
+          answer:
+            "No. Our website shares store hours, directions, promotions, and posted fuel prices. All fuel, convenience items, and adult 19+ tobacco and vape categories are sold in person only.",
+        },
+        {
+          question: "How do I contact the store?",
+          answer: "Call 613-396-2224 during store hours (6:00 AM – 10:00 PM daily) or use the contact form at /contact-directions.",
+        },
+      ],
+    },
+    "5-ways-to-save-on-gas-this-spring": {
+      enTitle: "5 Ways to Save on Gas This Spring | L&M Enterprises",
+      frTitle: "5 façons d'économiser sur l'essence ce printemps | L&M",
+      enDesc:
+        "Fuel prices fluctuate, but these five practical tips will help you get more kilometres out of every fill-up at L&M Enterprises.",
+      faqs: [
+        {
+          question: "What fuel grades are available when filling up at SAGO Gas Bar?",
+          answer:
+            "SAGO Gas Bar at 39 Dundas Street in Deseronto pumps Regular Unleaded (87), Premium (91), Clear Diesel, and Dyed Diesel, all full-service.",
+        },
+        {
+          question: "How does the monthly $1000 Free Gas contest work?",
+          answer:
+            "Stop by L&M Enterprises (43 Dundas Street) or SAGO Gas Bar (39 Dundas Street) in Deseronto and ask staff for entry details on the monthly $1000 Free Gas draw.",
+        },
+        {
+          question: "Where can I check posted pump prices before visiting?",
+          answer:
+            "Check the posted fuel price board and recorded update date on lnmenterprises.ca or /gas-station-deseronto, and call 613-396-2224 to confirm before travelling.",
+        },
+      ],
+    },
+    "your-quick-guide-to-our-convenience-store": {
+      enTitle: "Quick Guide to Our Deseronto Convenience Store | L&M",
+      frTitle: "Guide rapide de notre dépanneur à Deseronto | L&M",
+      enDesc:
+        "From snacks and drinks to everyday essentials, here’s what you’ll find inside L&M Enterprises’ fully stocked convenience store.",
+      faqs: [
+        {
+          question: "What everyday items does L&M Enterprises carry?",
+          answer:
+            "We stock cold drinks, coffee, chips, candy, jerky, bread, milk, eggs, butter, canned goods, basic toiletries, lottery tickets, ice, and seasonal road-trip supplies.",
+        },
+        {
+          question: "What payment methods are accepted in store?",
+          answer: "We accept Cash, Debit, Visa, and MasterCard, and an ATM is available inside the store at 43 Dundas Street.",
+        },
+        {
+          question: "What hours is the convenience store open?",
+          answer: "L&M Enterprises is open 7 days a week from 6:00 AM to 10:00 PM at 43 Dundas Street, Deseronto.",
+        },
+      ],
+    },
+    "understanding-vape-products-at-lm": {
+      enTitle: "Understanding Vape Products at L&M (Deseronto 19+)",
+      frTitle: "Produits de vapotage chez L&M à Deseronto (19+)",
+      enDesc:
+        "New to vaping or looking for something different? Here’s what we carry and how our staff can help you choose the right product.",
+      faqs: [
+        {
+          question: "Are vape and tobacco products sold online or shipped?",
+          answer:
+            "No. All vape, cigarette, cigar, and rolling tobacco categories at L&M Enterprises are sold in store only at 43 Dundas Street, Deseronto.",
+        },
+        {
+          question: "Do I need ID to buy vape or tobacco products?",
+          answer:
+            "Yes. Vape and tobacco categories are strictly for adult customers 19 and older with valid government photo ID.",
+        },
+        {
+          question: "How can I check if a specific vape brand or flavour is in stock?",
+          answer:
+            "Inventory and flavours rotate regularly — call 613-396-2224 or stop in between 6:00 AM and 10:00 PM daily to see current shelf selection.",
+        },
+      ],
+    },
+  };
+  const seoOverride = blogSeoOverrides[post.slug];
+  const postFaqs = Array.isArray(post.faqs) && post.faqs.length
+    ? post.faqs
+    : seoOverride
+      ? (lang === "fr" && seoOverride.frFaqs ? seoOverride.frFaqs : seoOverride.faqs || [])
+      : [];
+
   const content = `
     <section class="${heroClass}" ${heroStyle ? `style="${heroStyle}"` : ""}>
       <div class="hero-content">
@@ -1978,7 +2210,7 @@ function blogPostPage(post, lang = "en") {
               <p style="margin:0.25rem 0 0;color:var(--text-muted);">${lang === "fr" ? "Service complet aux pompes SAGO Gas Bar (39, rue Dundas) et dépanneur L&M Enterprises (43, rue Dundas, Deseronto)." : "Full-service fuel at SAGO Gas Bar (39 Dundas St) & L&M Enterprises convenience store (43 Dundas St, Deseronto — 5 mins off Hwy 401)."}</p>
             </div>
             <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-              <a class="btn btn-primary" href="/#gas-prices">${lang === "fr" ? "Voir les prix affichés" : "View Posted Fuel Prices"}</a>
+              <a class="btn btn-primary" href="/#prices">${lang === "fr" ? "Voir les prix affichés" : "View Posted Fuel Prices"}</a>
               <a class="btn btn-outline" href="/gas-station-deseronto">${lang === "fr" ? "Station-service Deseronto" : "Deseronto Gas Station"}</a>
             </div>
           </div>
@@ -1990,31 +2222,38 @@ function blogPostPage(post, lang = "en") {
           </div>
         </div>
       </section>
+      ${faqSection(lang, postFaqs)}
       ${relatedHtml}
     </main>`;
 
-  const blogSeoOverrides = {
-    "cheapest-gas-prices-deseronto-tyendinaga-near-401": {
-      enTitle: "Cheapest Gas Prices in Deseronto & Tyendinaga Near Hwy 401 (Regular, Premium & Diesel) | L&M Enterprises",
-      frTitle: "Prix de l'essence les plus bas à Deseronto et Tyendinaga près de la 401 | L&M Enterprises",
-      enDesc: "Why Deseronto & Tyendinaga Mohawk Territory offer some of the lowest gas prices in Ontario — 5 mins off Hwy 401 Exit 570 (Hwy 49) at SAGO Gas Bar & L&M Enterprises.",
-      frDesc: "Pourquoi Deseronto et le territoire mohawk de Tyendinaga offrent parmi les prix d'essence les plus bas en Ontario — à 5 min de la sortie 570 de la 401.",
-    },
-    "gas-station-near-401-deseronto-cheapest-fuel-kingston-belleville": {
-      enTitle: "Best Gas Station Exit Off Hwy 401 Between Kingston & Belleville (Exit 570 Deseronto) | L&M Enterprises",
-      frTitle: "Meilleure sortie d'essence sur l'autoroute 401 entre Kingston et Belleville (Sortie 570) | L&M Enterprises",
-      enDesc: "Driving Hwy 401 between Kingston, Napanee, and Belleville? Exit 570 (Hwy 49 South) to Deseronto puts you 5 minutes from full-service fuel & convenience at L&M Enterprises.",
-      frDesc: "Sur l'autoroute 401 entre Kingston, Napanee et Belleville ? La sortie 570 (route 49 sud) vers Deseronto vous mène en 5 minutes chez L&M Enterprises.",
-    },
-  };
-  const seoOverride = blogSeoOverrides[post.slug];
+  const rawTitleWithBrand = `${displayTitle} | L&M`;
+  const fallbackTitle =
+    rawTitleWithBrand.length <= 60
+      ? rawTitleWithBrand
+      : displayTitle.length <= 60
+        ? displayTitle
+        : clampMetaText(displayTitle, 60);
+  const pageTitle = seoOverride
+    ? (lang === "fr" && seoOverride.frTitle ? seoOverride.frTitle : seoOverride.enTitle)
+    : fallbackTitle;
+  const pageDescription = seoOverride
+    ? (lang === "fr" && seoOverride.frDesc ? seoOverride.frDesc : seoOverride.enDesc)
+    : clampMetaText(excerpt, 156);
 
   return pageTemplate({
-    title: seoOverride ? (lang === "fr" ? seoOverride.frTitle : seoOverride.enTitle) : `${displayTitle} | L&M Enterprises`,
-    description: seoOverride ? (lang === "fr" ? seoOverride.frDesc : seoOverride.enDesc) : excerpt,
+    title: pageTitle,
+    description: pageDescription,
     canonicalPath: `/blog/${post.slug}`,
     keywords: ["L&M Enterprises blog", "Deseronto store updates", ...(category ? [category.toLowerCase()] : [])],
-    jsonLd: blogPostJsonLd(post),
+    jsonLd: [
+      blogPostJsonLd(post, pageDescription),
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Blog", path: "/blog" },
+        { name: displayTitle, path: `/blog/${post.slug}` },
+      ]),
+      postFaqs.length ? faqJsonLd(postFaqs) : null,
+    ],
     ogImage: post.featuredImage || null,
     lang,
     content: layout(content, lang),

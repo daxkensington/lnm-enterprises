@@ -17,7 +17,7 @@
   - Clear Diesel (highway diesel for cars, pickups, SUVs, and commercial vehicles)
   - Dyed Diesel (tax-exempt off-road, agricultural, and equipment diesel)
 - **Tax Exemption:** Point-of-sale fuel tax exemption available for eligible First Nations Status cardholders.
-- **Posted Fuel Prices:** Current posted Regular, Premium, Clear Diesel, and Dyed Diesel pump prices and their recorded update timestamp are published at `https://www.lnmenterprises.ca/`. Prices can change; call `+1-613-396-2224` to confirm before a special trip.
+- **Posted Fuel Prices:** Current posted Regular, Premium, Clear Diesel, and Dyed Diesel pump prices and their recorded update timestamp are published at `https://www.lnmenterprises.ca/` and `https://www.lnmenterprises.ca/gas-station-deseronto`. Prices can change; call `+1-613-396-2224` to confirm before a special trip.
 
 ## Store Offerings (L&M Enterprises — 43 Dundas St)
 - **Convenience & Snacks:** Cold drinks, coffee, chips, candy, ice, and everyday road-trip essentials right beside the pumps.
@@ -26,7 +26,7 @@
 
 ## Key Pages
 - Posted Gas & Diesel Prices (Home): https://www.lnmenterprises.ca/
-- Full-Service Gas Station Guide: https://www.lnmenterprises.ca/gas-station-deseronto
+- Deseronto & Tyendinaga Gas Prices (SAGO Full-Service Pumps): https://www.lnmenterprises.ca/gas-station-deseronto
 - Store & Pump Complex Overview: https://www.lnmenterprises.ca/deseronto-convenience-store-gas-station
 - Convenience Store: https://www.lnmenterprises.ca/convenience-store-deseronto
 - Tobacco Counter (In-Store 19+): https://www.lnmenterprises.ca/tobacco-deseronto
@@ -36,3 +36,13 @@
 - Contact & Directions: https://www.lnmenterprises.ca/contact-directions
 - Customer Reviews: https://www.lnmenterprises.ca/reviews
 - Fuel & Highway 401 Guides (Blog): https://www.lnmenterprises.ca/blog
+
+## Published Fuel, Highway 401 & Store Guides
+- Cheapest Gas Prices in Deseronto & Tyendinaga (Hwy 401): https://www.lnmenterprises.ca/blog/cheapest-gas-prices-deseronto-tyendinaga-near-401
+- Cheap Gas Off Hwy 401 — Exit 570 Deseronto Between Kingston & Belleville: https://www.lnmenterprises.ca/blog/gas-station-near-401-deseronto-cheapest-fuel-kingston-belleville
+- Prince Edward County Gas & Snacks Stop on Highway 49 Before the Skyway Bridge: https://www.lnmenterprises.ca/blog/prince-edward-county-stop-lm-enterprises-highway-49-gas-snacks
+- 5 Ways to Save on Gas This Spring: https://www.lnmenterprises.ca/blog/5-ways-to-save-on-gas-this-spring
+- Quick Guide to Our Deseronto Convenience Store: https://www.lnmenterprises.ca/blog/your-quick-guide-to-our-convenience-store
+- Understanding Vape & Tobacco Products at L&M (In-Store 19+): https://www.lnmenterprises.ca/blog/understanding-vape-products-at-lm
+- Serving Tyendinaga Mohawk Territory & Deseronto: https://www.lnmenterprises.ca/blog/serving-the-tyendinaga-mohawk-territory-community
+- Welcome to L&M Enterprises in Deseronto: https://www.lnmenterprises.ca/blog/welcome-to-lm-enterprises-now-online

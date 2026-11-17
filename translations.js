@@ -212,7 +212,7 @@ const translations = {
     "hero.h1": "Station-service \u00e0 Deseronto",
     "hero.homeSubtitle": "L&M Enterprises \u2014 prix d'essence plus bas, pompes en service complet et magasin au 43, rue Dundas.",
     "hero.serving": "Fiers de servir le territoire mohawk de Tyendinaga et Deseronto",
-    "meta.homeTitle": "Prix de l'essence à Tyendinaga et Deseronto | L&M Enterprises",
+    "meta.homeTitle": "Prix de l'essence à Tyendinaga et Deseronto | L&M",
     "meta.homeDescription": "Consultez les prix affichés de l'essence et du diesel et leur date de mise à jour à Tyendinaga et Deseronto (route 49, à 5 min de la 401). Service complet.",
     "hero.findUs": "Nous trouver",
     "prices.updatedDaily": "Mis \u00e0 jour chaque jour",
