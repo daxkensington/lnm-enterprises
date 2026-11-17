@@ -4,14 +4,14 @@ const defaultCategories = [
     title: "Full-Service Gas Station in Deseronto (Hwy 49)",
     nav: "Gas Station",
     searchTitle: "Full-Service Gas Station in Deseronto (Hwy 49)",
-    metaTitle: "Full-Service Gas Station in Deseronto (Hwy 49 & 401) | L&M",
-    metaTitleFr: "Station-service à service complet à Deseronto (Rte 49) | L&M",
+    metaTitle: "Deseronto & Tyendinaga Gas Prices — SAGO Pumps | L&M",
+    metaTitleFr: "Prix d'essence Deseronto et Tyendinaga — Pompes SAGO | L&M",
     blurb: "Full-service Regular, Premium, and Diesel pumps at 39 Dundas St (Hwy 49), beside L&M convenience store.",
     photo: "exterior",
     description:
-      "Full-service gas station at 39–43 Dundas St (Hwy 49) in Deseronto, 5 min off Hwy 401 Exit 570. SAGO pumps with Regular, Premium & Diesel, open 6am–10pm.",
+      "Posted Regular, Premium & Diesel pump prices in Deseronto & Tyendinaga: 39–43 Dundas St (Hwy 49, 5 min off Hwy 401 Exit 570). Full-service, open 6am–10pm.",
     descriptionFr:
-      "Station-service à service complet au 39–43, rue Dundas (route 49) à Deseronto, à 5 min de la 401. Ordinaire, super et diesel aux pompes SAGO, 6h à 22h.",
+      "Prix affichés d'ordinaire, super et diesel à Deseronto et Tyendinaga au 39–43, rue Dundas (rte 49, 5 min de la 401). Service complet SAGO, 6h–22h.",
     intro:
       "Looking for a full-service gas station in Deseronto or near Hwy 401? L&M Enterprises sits at 43 Dundas Street (Highway 49) beside SAGO Gas Bar. Pull in for regular, premium, or diesel with full-service pumping, then grab snacks inside.",
     localAngle:
@@ -50,6 +50,9 @@ const defaultCategories = [
       },
     ],
     keywords: [
+      "deseronto gas prices",
+      "tyendinaga gas prices",
+      "gas prices deseronto",
       "gas station Deseronto",
       "full service gas Deseronto",
       "Highway 49 gas station",
